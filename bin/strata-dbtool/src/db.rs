@@ -23,12 +23,12 @@ pub(crate) fn open_database(path: &Path) -> Result<Arc<SledBackend>, DisplayedEr
 
 /// Opens the EE prover sled store at `<datadir>/sled`.
 ///
-/// `datadir` is expected to be the alpen-client's `--datadir`. Mirrors
-/// the alpen-client's [`alpen_ee_database::init_db_storage`] opener but
-/// only constructs the prover-task / chunk-receipt / acct-proof trees —
-/// the dbtool's prover commands read nothing else, so opening the other
-/// EE DBs (node, witness, broadcast, chunked-envelope, DA context) would
-/// be wasted work.
+/// `datadir` is expected to be the alpen-client's `--datadir`. This opens
+/// the same sled directory as [`alpen_ee_database::init_db_storage`], but
+/// constructs only the prover-task / chunk-receipt / acct-proof trees. The
+/// dbtool's prover commands read nothing else, so opening the other EE DBs
+/// (node, witness, broadcast, chunked-envelope, DA context) would be wasted
+/// work.
 pub(crate) fn open_ee_prover_database(
     datadir: &Path,
 ) -> Result<Arc<EeProverDbSled>, DisplayedError> {
@@ -54,9 +54,9 @@ pub(crate) fn open_ee_prover_database(
 /// Opens the EE chunked-envelope sled store at `<datadir>/sled`.
 ///
 /// `datadir` is expected to be the alpen-client's `--datadir`. Like
-/// [`open_ee_prover_database`], this mirrors the alpen-client's
-/// [`alpen_ee_database::init_db_storage`] opener but constructs **only** the
-/// chunked-envelope tree — the `ee-da-inspect` command reads nothing else, so
+/// [`open_ee_prover_database`], this opens the same sled directory as
+/// [`alpen_ee_database::init_db_storage`], but constructs only the
+/// chunked-envelope tree. The `ee-da-inspect` command reads nothing else, so
 /// opening the other EE DBs (node, witness, broadcast, prover, DA context)
 /// would be wasted work.
 pub(crate) fn open_ee_chunked_envelope_database(
